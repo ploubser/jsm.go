@@ -152,6 +152,8 @@ func checkClusterUniformGatewayConfig(_ *Check, r *archive.Reader, examples *Exa
 				log.Warnf("Artifact 'GATEWAYZ' is missing for server %s cluster %s", serverName, clusterName)
 			} else if err != nil {
 				return Skipped, fmt.Errorf("failed to load GATEWAYZ for server %s: %w", serverName, err)
+			} else if resp.Data == nil {
+				return Skipped, fmt.Errorf("failed to load GATEWAYZ for server %s: response is empty", serverName)
 			}
 			gateways = resp.Data
 
